@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>反馈工具</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 15px;
+    background: #f5f5f3;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .container { width: 100%; max-width: 560px; }
+  h1 { font-size: 18px; font-weight: 500; margin-bottom: 1.5rem; color: #1a1a1a; }
+  .mode-row { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+  .mode-btn, .type-btn {
+    flex: 1; padding: 10px;
+    border: 0.5px solid #ccc; border-radius: 8px;
+    background: #fff; color: #666;
+    cursor: pointer; font-size: 14px; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .mode-btn.active, .type-btn.active {
+    border-color: #534AB7; background: #EEEDFE; color: #3C3489; font-weight: 500;
+  }
+  .type-row { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+  .section { display: none; } .section.show { display: block; }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .field-full { grid-column: 1 / -1; }
+  .field label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
+  input[type=text], textarea {
+    width: 100%; padding: 8px 10px;
+    border: 0.5px solid #ccc; border-radius: 8px;
+    font-size: 14px; font-family: inherit;
+    background: #fff; color: #1a1a1a; outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type=text]:focus, textarea:focus {
+    border-color: #534AB7; box-shadow: 0 0 0 2px #EEEDFE;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  .seg-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .seg-btn {
+    flex: 1; padding: 8px 4px;
+    border: 0.5px solid #ccc; border-radius: 8px;
+    background: #fff; color: #666;
+    cursor: pointer; font-size: 13px; font-family: inherit;
+    transition: all 0.15s; text-align: center; min-width: 0;
+  }
+  .seg-btn.active { border-color: #534AB7; background: #EEEDFE; color: #3C3489; font-weight: 500; }
+  .pass-row { display: flex; gap: 8px; margin-bottom: 0; }
+  .pass-btn {
+    flex: 1; padding: 10px;
+    border: 0.5px solid #ccc; border-radius: 8px;
+    background: #fff; color: #666;
+    cursor: pointer; font-size: 14px; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .pass-btn.pass.active { border-color: #0F6E56; background: #E1F5EE; color: #085041; font-weight: 500; }
+  .pass-btn.fail.active { border-color: #993C1D; background: #FAECE7; color: #712B13; font-weight: 500; }
+  .gen-btn {
+    width: 100%; padding: 11px;
+    border: 0.5px solid #ccc; border-radius: 8px;
+    background: #fff; color: #1a1a1a;
+    font-size: 14px; font-family: inherit;
+    cursor: pointer; margin-bottom: 1.5rem;
+    transition: background 0.15s;
+  }
+  .gen-btn:hover { background: #f0f0ee; }
+  .divider { border: none; border-top: 0.5px solid #e0e0e0; margin: 0 0 1.5rem; }
+  .output-wrap { display: none; } .output-wrap.show { display: block; }
+  .output-box {
+    background: #f0f0ee; border: 0.5px solid #e0e0e0; border-radius: 8px;
+    padding: 1rem 1.25rem; white-space: pre-wrap;
+    font-size: 14px; line-height: 1.8; color: #1a1a1a; margin-bottom: 10px;
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 16px; border: 0.5px solid #ccc; border-radius: 8px;
+    background: #fff; color: #1a1a1a;
+    font-size: 13px; font-family: inherit; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .copy-btn:hover { background: #f0f0ee; }
+  .copy-btn.copied { color: #0F6E56; border-color: #0F6E56; }
+  .hint { font-size: 12px; color: #999; }
+  .fraction-row { display: flex; align-items: center; gap: 6px; }
+  .fraction-row input { flex: 1; }
+  .fraction-sep { font-size: 16px; color: #666; flex-shrink: 0; }
+  .history-section { margin-top: 0.5rem; }
+  .history-title { font-size: 13px; color: #666; margin-bottom: 8px; }
+  .history-item { border: 0.5px solid #e0e0e0; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+  .history-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 12px; cursor: pointer; background: #fff;
+    font-size: 13px; color: #666; user-select: none;
+  }
+  .history-header:hover { background: #f0f0ee; }
+  .history-header-left { display: flex; align-items: center; gap: 8px; }
+  .history-tag {
+    font-size: 11px; padding: 2px 7px; border-radius: 20px;
+    background: #f0f0ee; color: #999; border: 0.5px solid #e0e0e0;
+  }
+  .history-preview { font-size: 13px; color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+  .history-chevron { font-size: 12px; color: #999; transition: transform 0.2s; }
+  .history-body { display: none; padding: 10px 12px 12px; border-top: 0.5px solid #e0e0e0; }
+  .history-body.open { display: block; }
+  .history-text { white-space: pre-wrap; font-size: 13px; line-height: 1.8; color: #1a1a1a; margin-bottom: 8px; }
+  .history-copy-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 6px 12px; border: 0.5px solid #ccc; border-radius: 8px;
+    background: #fff; color: #1a1a1a; font-size: 12px; font-family: inherit; cursor: pointer;
+  }
+  .history-copy-btn:hover { background: #f0f0ee; }
+  .history-copy-btn.copied { color: #0F6E56; border-color: #0F6E56; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>反馈工具</h1>
+
+  <div class="mode-row">
+    <button class="mode-btn active" onclick="setMode('email')">邮件</button>
+    <button class="mode-btn" onclick="setMode('vocab')">单词反馈</button>
+  </div>
+
+  <!-- 邮件模块 -->
+  <div id="section-email" class="section show">
+    <div class="type-row">
+      <button class="type-btn active" onclick="setType('adjust')">课程调整</button>
+      <button class="type-btn" onclick="setType('cancel')">课程取消</button>
+      <button class="type-btn" onclick="setType('resume')">复课申请</button>
+    </div>
+    <div id="fields-adjust" class="fields">
+      <div class="field field-full"><label>学员姓名</label><input type="text" id="adj-name" placeholder="例：张三"></div>
+      <div class="field field-full"><label>调整原因</label><input type="text" id="adj-reason" placeholder="例：临时有事"></div>
+      <div class="field"><label>日期（几月几日）</label><input type="text" id="adj-date" placeholder="例：6月10日"></div>
+      <div class="field"><label>时间段</label><input type="text" id="adj-time" placeholder="例：B 或 10:00-12:00" onblur="formatTime(this)"></div>
+      <div class="field"><label>老师</label><input type="text" id="adj-teacher" placeholder="例：李老师"></div>
+      <div class="field"><label>课程</label><input type="text" id="adj-course" placeholder="例：数学"></div>
+    </div>
+    <div id="fields-cancel" class="fields" style="display:none">
+      <div class="field field-full"><label>学员姓名</label><input type="text" id="can-name" placeholder="例：张三"></div>
+      <div class="field field-full"><label>取消原因</label><input type="text" id="can-reason" placeholder="例：身体不适"></div>
+      <div class="field"><label>日期（几月几日）</label><input type="text" id="can-date" placeholder="例：6月10日"></div>
+      <div class="field"><label>时间段</label><input type="text" id="can-time" placeholder="例：B 或 10:00-12:00" onblur="formatTime(this)"></div>
+      <div class="field"><label>老师</label><input type="text" id="can-teacher" placeholder="例：李老师"></div>
+      <div class="field"><label>课程</label><input type="text" id="can-course" placeholder="例：数学"></div>
+    </div>
+    <div id="fields-resume" class="fields" style="display:none">
+      <div class="field field-full"><label>学员姓名</label><input type="text" id="res-name" placeholder="例：张三"></div>
+      <div class="field field-full"><label>复课细节</label><textarea id="res-detail" placeholder="例：6月15日起每周三下午B段，李老师数学课"></textarea></div>
+    </div>
+    <button class="gen-btn" onclick="generateEmail()">生成邮件正文</button>
+    <div class="output-wrap" id="email-output-wrap">
+      <hr class="divider">
+      <div class="output-box" id="email-output-box"></div>
+      <button class="copy-btn" id="email-copy-btn" onclick="copyAndClear('email')">复制正文</button>
+    </div>
+    <div class="history-section" id="email-history-section" style="display:none">
+      <hr class="divider" style="margin-top:1rem">
+      <div class="history-title">最近记录</div>
+      <div id="email-history-list"></div>
+    </div>
+  </div>
+
+  <!-- 单词反馈模块 -->
+  <div id="section-vocab" class="section">
+    <div class="fields">
+      <div class="field field-full"><label>学员姓名</label><input type="text" id="v-name" placeholder="例：张三"></div>
+      <div class="field field-full">
+        <label>种类</label>
+        <div class="seg-row" id="v-category-row">
+          <button class="seg-btn active" onclick="setCategory('托福')">托福</button>
+          <button class="seg-btn" onclick="setCategory('雅思')">雅思</button>
+          <button class="seg-btn" onclick="setCategory('SAT')">SAT</button>
+          <button class="seg-btn" onclick="setCategory('听力单词')">听力单词</button>
+          <button class="seg-btn" onclick="setCategory('阅读单词')">阅读单词</button>
+        </div>
+      </div>
+      <div id="book-fields" class="field field-full">
+        <div class="field" style="margin-bottom:12px">
+          <label>书本名称</label>
+          <div class="seg-row" id="v-book-row">
+            <button class="seg-btn active" onclick="setBook('入门')">入门</button>
+            <button class="seg-btn" onclick="setBook('预备')">预备</button>
+            <button class="seg-btn" onclick="setBook('基础')">基础</button>
+            <button class="seg-btn" onclick="setBook('核心')">核心</button>
+            <button class="seg-btn" onclick="setBook('进阶')">进阶</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>List</label>
+          <input type="text" id="v-lesson" placeholder="例：5">
+        </div>
+      </div>
+      <div class="field field-full">
+        <label>复习 / 新背</label>
+        <div class="seg-row" id="v-review-row">
+          <button class="seg-btn active" onclick="setReview('新背')">新背</button>
+          <button class="seg-btn" onclick="setReview('复习')">复习</button>
+        </div>
+      </div>
+      <div class="field field-full">
+        <label>第几遍 <span class="hint">（选填）</span></label>
+        <input type="text" id="v-round" placeholder="例：2">
+      </div>
+      <div class="field">
+        <label>辨音</label>
+        <div class="fraction-row">
+          <input type="text" id="v-phon-a" placeholder="8" oninput="autoJudge()">
+          <span class="fraction-sep">/</span>
+          <input type="text" id="v-phon-b" placeholder="10" oninput="autoJudge()">
+        </div>
+      </div>
+      <div class="field">
+        <label>拼写</label>
+        <div class="fraction-row">
+          <input type="text" id="v-spell-a" placeholder="9" oninput="autoJudge()">
+          <span class="fraction-sep">/</span>
+          <input type="text" id="v-spell-b" placeholder="10" oninput="autoJudge()">
+        </div>
+      </div>
+      <div class="field field-full">
+        <label>结果</label>
+        <div class="pass-row">
+          <button class="pass-btn pass" id="btn-pass" onclick="setPass(true)">通过 ✅</button>
+          <button class="pass-btn fail" id="btn-fail" onclick="setPass(false)">不通过 ❌</button>
+        </div>
+      </div>
+    </div>
+    <button class="gen-btn" onclick="generateVocab()">生成反馈</button>
+    <div class="output-wrap" id="vocab-output-wrap">
+      <hr class="divider">
+      <div class="output-box" id="vocab-output-box"></div>
+      <button class="copy-btn" id="vocab-copy-btn" onclick="copyAndClear('vocab')">复制</button>
+    </div>
+    <div class="history-section" id="vocab-history-section" style="display:none">
+      <hr class="divider" style="margin-top:1rem">
+      <div class="history-title">最近记录</div>
+      <div id="vocab-history-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentMode = 'email', emailType = 'adjust';
+  let vCategory = '托福', vBook = '入门', vReview = '新背', vPass = null;
+  let emailHistory = [], vocabHistory = [];
+
+  function setMode(m) {
+    currentMode = m;
+    document.querySelectorAll('.mode-btn').forEach((b,i) => b.classList.toggle('active', ['email','vocab'][i] === m));
+    document.getElementById('section-email').classList.toggle('show', m === 'email');
+    document.getElementById('section-vocab').classList.toggle('show', m === 'vocab');
+  }
+
+  function setType(t) {
+    emailType = t;
+    document.querySelectorAll('#section-email .type-btn').forEach((b,i) => b.classList.toggle('active', ['adjust','cancel','resume'][i] === t));
+    ['adjust','cancel','resume'].forEach(id => {
+      document.getElementById('fields-'+id).style.display = id === t ? 'grid' : 'none';
+    });
+    document.getElementById('email-output-wrap').classList.remove('show');
+  }
+
+  function setCategory(c) {
+    vCategory = c;
+    document.querySelectorAll('#v-category-row .seg-btn').forEach(b => b.classList.toggle('active', b.textContent === c));
+    document.getElementById('book-fields').style.display = (c === '听力单词' || c === '阅读单词') ? 'none' : 'block';
+  }
+
+  function setBook(b) {
+    vBook = b;
+    document.querySelectorAll('#v-book-row .seg-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === b));
+  }
+
+  function setReview(r) {
+    vReview = r;
+    document.querySelectorAll('#v-review-row .seg-btn').forEach(b => b.classList.toggle('active', b.textContent === r));
+  }
+
+  function setPass(p) {
+    vPass = p;
+    document.getElementById('btn-pass').classList.toggle('active', p === true);
+    document.getElementById('btn-fail').classList.toggle('active', p === false);
+  }
+
+  function autoJudge() {
+    const pa = parseFloat(document.getElementById('v-phon-a').value);
+    const pb = parseFloat(document.getElementById('v-phon-b').value);
+    const sa = parseFloat(document.getElementById('v-spell-a').value);
+    const sb = parseFloat(document.getElementById('v-spell-b').value);
+    if (!isNaN(pa) && !isNaN(pb) && pb > 0 && !isNaN(sa) && !isNaN(sb) && sb > 0) {
+      setPass(pa / pb > 0.9 && sa / sb > 0.9);
+    }
+  }
+
+  function formatTime(input) {
+    const val = input.value.trim();
+    if (/^[a-dA-D]$/.test(val)) {
+      input.value = val.toUpperCase() + '段';
+    }
+  }
+
+  function v(id) { return (document.getElementById(id).value || '').trim(); }
+
+  function generateEmail() {
+    const val = id => (document.getElementById(id).value || '______').trim();
+    let text = '';
+    if (emailType === 'adjust') {
+      text = `教务老师好，\n以下为学员${val('adj-name')}的课程调整申请，辛苦操作！\n\n学员姓名：${val('adj-name')}\n调整原因：${val('adj-reason')}\n调整内容：申请调整${val('adj-date')}${val('adj-time')}${val('adj-teacher')}${val('adj-course')}\n课时补扣：不扣不补\n\n祝好，\n陈晓瑜`;
+    } else if (emailType === 'cancel') {
+      text = `教务老师好，\n以下为学员${val('can-name')}的课程取消申请，辛苦操作！\n\n学员姓名：${val('can-name')}\n取消原因：${val('can-reason')}\n取消内容：申请取消${val('can-date')}${val('can-time')}${val('can-teacher')}${val('can-course')}\n课时补扣：不扣不补\n\n祝好，\n陈晓瑜`;
+    } else {
+      text = `教务老师好，\n以下为学员${val('res-name')}的复课申请，辛苦操作！\n\n学员复课细节如下：\n${val('res-detail')}\n\n祝好，\n陈晓瑜`;
+    }
+    document.getElementById('email-output-box').textContent = text;
+    document.getElementById('email-output-wrap').classList.add('show');
+    const btn = document.getElementById('email-copy-btn');
+    btn.classList.remove('copied'); btn.textContent = '复制正文';
+  }
+
+  function generateVocab() {
+    const noBook = vCategory === '听力单词' || vCategory === '阅读单词';
+    const lessonNum = v('v-lesson');
+    const bookPart = noBook ? '' : vBook + (lessonNum ? 'L' + lessonNum : '');
+    const roundVal = v('v-round');
+    const roundPart = roundVal ? ` 第${roundVal}遍` : '';
+    const name = v('v-name') || '______';
+    const phonA = v('v-phon-a') || '___', phonB = v('v-phon-b') || '___';
+    const spellA = v('v-spell-a') || '___', spellB = v('v-spell-b') || '___';
+    const passText = vPass === true ? '通过✅' : vPass === false ? '不通过❌' : '______';
+    const text = `${name} ${vCategory}${bookPart}${vReview}${roundPart}\n辨音：${phonA}/${phonB}\n拼写：${spellA}/${spellB}\n${passText}`;
+    document.getElementById('vocab-output-box').textContent = text;
+    document.getElementById('vocab-output-wrap').classList.add('show');
+    const btn = document.getElementById('vocab-copy-btn');
+    btn.classList.remove('copied'); btn.textContent = '复制';
+  }
+
+  function copyAndClear(type) {
+    const text = document.getElementById(type+'-output-box').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById(type+'-copy-btn');
+      btn.classList.add('copied'); btn.textContent = '已复制 ✓';
+      const hist = type === 'email' ? emailHistory : vocabHistory;
+      hist.unshift(text);
+      if (hist.length > 3) hist.pop();
+      if (type === 'email') emailHistory = hist; else vocabHistory = hist;
+      renderHistory(type);
+      setTimeout(() => {
+        clearFields(type);
+        document.getElementById(type+'-output-wrap').classList.remove('show');
+      }, 800);
+    });
+  }
+
+  function clearFields(type) {
+    if (type === 'email') {
+      ['adj-name','adj-reason','adj-date','adj-time','adj-teacher','adj-course',
+       'can-name','can-reason','can-date','can-time','can-teacher','can-course',
+       'res-name','res-detail'].forEach(id => document.getElementById(id).value = '');
+    } else {
+      ['v-name','v-lesson','v-round','v-phon-a','v-phon-b','v-spell-a','v-spell-b']
+        .forEach(id => document.getElementById(id).value = '');
+      vPass = null;
+      document.getElementById('btn-pass').classList.remove('active');
+      document.getElementById('btn-fail').classList.remove('active');
+    }
+  }
+
+  function renderHistory(type) {
+    const hist = type === 'email' ? emailHistory : vocabHistory;
+    const section = document.getElementById(type+'-history-section');
+    const list = document.getElementById(type+'-history-list');
+    if (!hist.length) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    list.innerHTML = hist.map((text, i) => {
+      const preview = text.split('\n')[0];
+      const tag = type === 'email' ? '邮件' : '单词';
+      return `<div class="history-item">
+        <div class="history-header" onclick="toggleHistory(this)">
+          <div class="history-header-left">
+            <span class="history-tag">${tag}</span>
+            <span class="history-preview">${preview}</span>
+          </div>
+          <span class="history-chevron">▼</span>
+        </div>
+        <div class="history-body">
+          <div class="history-text">${text}</div>
+          <button class="history-copy-btn" onclick="copyHistoryItem(this,${i},'${type}')">复制</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function toggleHistory(header) {
+    const body = header.nextElementSibling;
+    const chevron = header.querySelector('.history-chevron');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+  }
+
+  function copyHistoryItem(btn, index, type) {
+    const hist = type === 'email' ? emailHistory : vocabHistory;
+    navigator.clipboard.writeText(hist[index]).then(() => {
+      btn.classList.add('copied'); btn.textContent = '已复制 ✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '复制'; }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
