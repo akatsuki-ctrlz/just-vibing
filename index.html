@@ -16,17 +16,17 @@
   .mode-row, .type-row { display: flex; gap: 8px; margin-bottom: 1.5rem; }
   .mode-btn, .type-btn {
     flex: 1; padding: 10px; border: 0.5px solid #ccc; border-radius: 8px;
-    background: #fff; color: #666; cursor: pointer; font-size: 14px; font-family: inherit; transition: all 0.15s;
+    background: #fff; color: #666; cursor: pointer; font-size: 14px; font-family: inherit; transition: all .15s;
   }
   .mode-btn.active, .type-btn.active { border-color: #534AB7; background: #EEEDFE; color: #3C3489; font-weight: 500; }
   .section { display: none; } .section.show { display: block; }
   .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
   .field-full { grid-column: 1 / -1; }
-  .field-group-label { font-size: 12px; color: #999; margin-bottom: 0; grid-column: 1 / -1; padding-bottom: 4px; border-bottom: 0.5px solid #e0e0e0; }
+  .field-group-label { font-size: 12px; color: #999; grid-column: 1 / -1; padding-bottom: 4px; border-bottom: 0.5px solid #e0e0e0; }
   .field label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
   input[type=text], textarea {
     width: 100%; padding: 8px 10px; border: 0.5px solid #ccc; border-radius: 8px;
-    font-size: 14px; font-family: inherit; background: #fff; color: #1a1a1a; outline: none; transition: border-color 0.15s;
+    font-size: 14px; font-family: inherit; background: #fff; color: #1a1a1a; outline: none; transition: border-color .15s;
   }
   input[type=text]:focus, textarea:focus { border-color: #534AB7; box-shadow: 0 0 0 2px #EEEDFE; }
   textarea { resize: vertical; min-height: 80px; }
@@ -34,20 +34,20 @@
   .seg-btn {
     flex: 1; padding: 8px 4px; border: 0.5px solid #ccc; border-radius: 8px;
     background: #fff; color: #666; cursor: pointer; font-size: 13px; font-family: inherit;
-    transition: all 0.15s; text-align: center; min-width: 0;
+    transition: all .15s; text-align: center; min-width: 0;
   }
   .seg-btn.active { border-color: #534AB7; background: #EEEDFE; color: #3C3489; font-weight: 500; }
   .pass-row { display: flex; gap: 8px; margin-bottom: 0; }
   .pass-btn {
     flex: 1; padding: 10px; border: 0.5px solid #ccc; border-radius: 8px;
-    background: #fff; color: #666; cursor: pointer; font-size: 14px; font-family: inherit; transition: all 0.15s;
+    background: #fff; color: #666; cursor: pointer; font-size: 14px; font-family: inherit; transition: all .15s;
   }
   .pass-btn.pass.active { border-color: #0F6E56; background: #E1F5EE; color: #085041; font-weight: 500; }
   .pass-btn.fail.active { border-color: #993C1D; background: #FAECE7; color: #712B13; font-weight: 500; }
   .gen-btn {
     width: 100%; padding: 11px; border: 0.5px solid #ccc; border-radius: 8px;
     background: #fff; color: #1a1a1a; font-size: 14px; font-family: inherit;
-    cursor: pointer; margin-bottom: 1.5rem; transition: background 0.15s;
+    cursor: pointer; margin-bottom: 1.5rem; transition: background .15s;
   }
   .gen-btn:hover { background: #f0f0ee; }
   .divider { border: none; border-top: 0.5px solid #e0e0e0; margin: 0 0 1.5rem; }
@@ -59,7 +59,7 @@
   .copy-btn {
     display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px;
     border: 0.5px solid #ccc; border-radius: 8px; background: #fff; color: #1a1a1a;
-    font-size: 13px; font-family: inherit; cursor: pointer; transition: background 0.15s;
+    font-size: 13px; font-family: inherit; cursor: pointer; transition: background .15s;
   }
   .copy-btn:hover { background: #f0f0ee; }
   .copy-btn.copied { color: #0F6E56; border-color: #0F6E56; }
@@ -67,7 +67,19 @@
   .fraction-row { display: flex; align-items: center; gap: 6px; }
   .fraction-row input { flex: 1; }
   .fraction-sep { font-size: 16px; color: #666; flex-shrink: 0; }
-  .history-section { margin-top: 0.5rem; }
+  .lesson-block { border: 0.5px solid #e0e0e0; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+  .lesson-block-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .lesson-block-title { font-size: 12px; color: #999; }
+  .remove-btn { font-size: 12px; color: #999; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 4px; }
+  .remove-btn:hover { color: #993C1D; background: #FAECE7; }
+  .lesson-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .add-lesson-btn {
+    width: 100%; padding: 9px; border: 0.5px dashed #ccc; border-radius: 8px;
+    background: transparent; color: #666; font-size: 13px; font-family: inherit;
+    cursor: pointer; margin-bottom: 1.5rem;
+  }
+  .add-lesson-btn:hover { background: #f0f0ee; }
+  .history-section { margin-top: .5rem; }
   .history-title { font-size: 13px; color: #666; margin-bottom: 8px; }
   .history-item { border: 0.5px solid #e0e0e0; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
   .history-header {
@@ -78,7 +90,7 @@
   .history-header-left { display: flex; align-items: center; gap: 8px; }
   .history-tag { font-size: 11px; padding: 2px 7px; border-radius: 20px; background: #f0f0ee; color: #999; border: 0.5px solid #e0e0e0; }
   .history-preview { font-size: 13px; color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
-  .history-chevron { font-size: 12px; color: #999; transition: transform 0.2s; }
+  .history-chevron { font-size: 12px; color: #999; transition: transform .2s; }
   .history-body { display: none; padding: 10px 12px 12px; border-top: 0.5px solid #e0e0e0; }
   .history-body.open { display: block; }
   .history-text { white-space: pre-wrap; font-size: 13px; line-height: 1.8; color: #1a1a1a; margin-bottom: 8px; }
@@ -107,31 +119,29 @@
       <button class="type-btn" onclick="setType('resume')">复课申请</button>
     </div>
 
-    <div id="fields-adjust" class="fields">
-      <div class="field field-full"><label>学员姓名</label><input type="text" id="adj-name" placeholder="例：张三"></div>
-      <div class="field field-full"><label>调整原因</label><input type="text" id="adj-reason" placeholder="例：临时有事"></div>
-      <div class="field-group-label">原课</div>
-      <div class="field"><label>日期</label><input type="text" id="adj-date" placeholder="例：6月6日"></div>
-      <div class="field"><label>时间段</label><input type="text" id="adj-time" placeholder="例：D" onblur="formatTime(this)"></div>
-      <div class="field"><label>老师</label><input type="text" id="adj-teacher" placeholder="例：张三"></div>
-      <div class="field"><label>课程</label><input type="text" id="adj-course" placeholder="例：托福阅读课"></div>
-      <div class="field-group-label">调整至</div>
-      <div class="field"><label>日期</label><input type="text" id="adj-to-date" placeholder="例：6月7日"></div>
-      <div class="field"><label>时间段</label><input type="text" id="adj-to-time" placeholder="例：B" onblur="formatTime(this)"></div>
+    <div id="fields-adjust">
+      <div class="fields" style="margin-bottom:12px">
+        <div class="field field-full"><label>学员姓名</label><input type="text" id="adj-name" placeholder="例：张三"></div>
+        <div class="field field-full"><label>调整原因</label><input type="text" id="adj-reason" placeholder="例：临时有事"></div>
+      </div>
+      <div id="adj-lessons"></div>
+      <button class="add-lesson-btn" onclick="addLesson('adjust')">＋ 添加课程</button>
     </div>
 
-    <div id="fields-cancel" class="fields" style="display:none">
-      <div class="field field-full"><label>学员姓名</label><input type="text" id="can-name" placeholder="例：张三"></div>
-      <div class="field field-full"><label>取消原因</label><input type="text" id="can-reason" placeholder="例：身体不适"></div>
-      <div class="field"><label>日期</label><input type="text" id="can-date" placeholder="例：6月10日"></div>
-      <div class="field"><label>时间段</label><input type="text" id="can-time" placeholder="例：B" onblur="formatTime(this)"></div>
-      <div class="field"><label>老师</label><input type="text" id="can-teacher" placeholder="例：张三"></div>
-      <div class="field"><label>课程</label><input type="text" id="can-course" placeholder="例：数学"></div>
+    <div id="fields-cancel" style="display:none">
+      <div class="fields" style="margin-bottom:12px">
+        <div class="field field-full"><label>学员姓名</label><input type="text" id="can-name" placeholder="例：张三"></div>
+        <div class="field field-full"><label>取消原因</label><input type="text" id="can-reason" placeholder="例：身体不适"></div>
+      </div>
+      <div id="can-lessons"></div>
+      <button class="add-lesson-btn" onclick="addLesson('cancel')">＋ 添加课程</button>
     </div>
 
-    <div id="fields-resume" class="fields" style="display:none">
-      <div class="field field-full"><label>学员姓名</label><input type="text" id="res-name" placeholder="例：张三"></div>
-      <div class="field field-full"><label>复课细节</label><textarea id="res-detail" placeholder="例：6月15日起每周三下午B段，李老师数学课"></textarea></div>
+    <div id="fields-resume" style="display:none">
+      <div class="fields">
+        <div class="field field-full"><label>学员姓名</label><input type="text" id="res-name" placeholder="例：张三"></div>
+        <div class="field field-full"><label>复课细节</label><textarea id="res-detail" placeholder="例：6月15日起每周三下午B段，李老师数学课"></textarea></div>
+      </div>
     </div>
 
     <button class="gen-btn" onclick="generateEmail()">生成邮件正文</button>
@@ -172,10 +182,7 @@
             <button class="seg-btn" onclick="setBook('进阶')">进阶</button>
           </div>
         </div>
-        <div class="field">
-          <label>List</label>
-          <input type="text" id="v-lesson" placeholder="例：5">
-        </div>
+        <div class="field"><label>List</label><input type="text" id="v-lesson" placeholder="例：5"></div>
       </div>
       <div class="field field-full">
         <label>复习 / 新背</label>
@@ -187,6 +194,10 @@
       <div class="field field-full">
         <label>第几遍 <span class="hint">（选填）</span></label>
         <input type="text" id="v-round" placeholder="例：2">
+      </div>
+      <div class="field field-full">
+        <label>快速输入分数 <span class="hint">（辨音分子 辨音分母 拼写分子 拼写分母）</span></label>
+        <input type="text" id="v-quick" placeholder="例：16 20 19 20" oninput="quickFill()">
       </div>
       <div class="field">
         <label>辨音</label>
@@ -227,150 +238,215 @@
 </div>
 
 <script>
-  let currentMode = 'email', emailType = 'adjust';
-  let vCategory = '托福', vBook = '入门', vReview = '新背', vPass = null;
-  let emailHistory = [], vocabHistory = [];
+  let currentMode='email', emailType='adjust';
+  let vCategory='托福', vBook='入门', vReview='新背', vPass=null;
+  let emailHistory=[], vocabHistory=[];
+  let adjLessons=[], canLessons=[], lessonCounter=0;
 
-  function setMode(m) {
-    currentMode = m;
-    document.querySelectorAll('.mode-btn').forEach((b,i) => b.classList.toggle('active', ['email','vocab'][i] === m));
-    document.getElementById('section-email').classList.toggle('show', m === 'email');
-    document.getElementById('section-vocab').classList.toggle('show', m === 'vocab');
+  function setMode(m){
+    currentMode=m;
+    document.querySelectorAll('.mode-btn').forEach((b,i)=>b.classList.toggle('active',['email','vocab'][i]===m));
+    document.getElementById('section-email').classList.toggle('show',m==='email');
+    document.getElementById('section-vocab').classList.toggle('show',m==='vocab');
   }
 
-  function setType(t) {
-    emailType = t;
-    document.querySelectorAll('#section-email .type-btn').forEach((b,i) => b.classList.toggle('active', ['adjust','cancel','resume'][i] === t));
-    ['adjust','cancel','resume'].forEach(id => {
-      document.getElementById('fields-'+id).style.display = id === t ? 'grid' : 'none';
-    });
+  function setType(t){
+    emailType=t;
+    document.querySelectorAll('#section-email .type-btn').forEach((b,i)=>b.classList.toggle('active',['adjust','cancel','resume'][i]===t));
+    document.getElementById('fields-adjust').style.display=t==='adjust'?'block':'none';
+    document.getElementById('fields-cancel').style.display=t==='cancel'?'block':'none';
+    document.getElementById('fields-resume').style.display=t==='resume'?'block':'none';
     document.getElementById('email-output-wrap').classList.remove('show');
   }
 
-  function setCategory(c) {
-    vCategory = c;
-    document.querySelectorAll('#v-category-row .seg-btn').forEach(b => b.classList.toggle('active', b.textContent === c));
-    document.getElementById('book-fields').style.display = (c === '听力单词' || c === '阅读单词') ? 'none' : 'block';
+  function setCategory(c){
+    vCategory=c;
+    document.querySelectorAll('#v-category-row .seg-btn').forEach(b=>b.classList.toggle('active',b.textContent===c));
+    document.getElementById('book-fields').style.display=(c==='听力单词'||c==='阅读单词')?'none':'block';
+  }
+  function setBook(b){ vBook=b; document.querySelectorAll('#v-book-row .seg-btn').forEach(btn=>btn.classList.toggle('active',btn.textContent===b)); }
+  function setReview(r){ vReview=r; document.querySelectorAll('#v-review-row .seg-btn').forEach(b=>b.classList.toggle('active',b.textContent===r)); }
+  function setPass(p){
+    vPass=p;
+    document.getElementById('btn-pass').classList.toggle('active',p===true);
+    document.getElementById('btn-fail').classList.toggle('active',p===false);
   }
 
-  function setBook(b) {
-    vBook = b;
-    document.querySelectorAll('#v-book-row .seg-btn').forEach(btn => btn.classList.toggle('active', btn.textContent === b));
+  function autoJudge(){
+    const pa=parseFloat(document.getElementById('v-phon-a').value);
+    const pb=parseFloat(document.getElementById('v-phon-b').value);
+    const sa=parseFloat(document.getElementById('v-spell-a').value);
+    const sb=parseFloat(document.getElementById('v-spell-b').value);
+    if(!isNaN(pa)&&!isNaN(pb)&&pb>0&&!isNaN(sa)&&!isNaN(sb)&&sb>0)
+      setPass(pa/pb>=0.9&&sa/sb>=0.9);
   }
 
-  function setReview(r) {
-    vReview = r;
-    document.querySelectorAll('#v-review-row .seg-btn').forEach(b => b.classList.toggle('active', b.textContent === r));
-  }
-
-  function setPass(p) {
-    vPass = p;
-    document.getElementById('btn-pass').classList.toggle('active', p === true);
-    document.getElementById('btn-fail').classList.toggle('active', p === false);
-  }
-
-  function autoJudge() {
-    const pa = parseFloat(document.getElementById('v-phon-a').value);
-    const pb = parseFloat(document.getElementById('v-phon-b').value);
-    const sa = parseFloat(document.getElementById('v-spell-a').value);
-    const sb = parseFloat(document.getElementById('v-spell-b').value);
-    if (!isNaN(pa) && !isNaN(pb) && pb > 0 && !isNaN(sa) && !isNaN(sb) && sb > 0) {
-      setPass(pa / pb >= 0.9 && sa / sb >= 0.9);
+  function quickFill(){
+    const parts=document.getElementById('v-quick').value.trim().split(/\s+/);
+    if(parts.length===4&&parts.every(p=>p!==''&&!isNaN(p))){
+      document.getElementById('v-phon-a').value=parts[0];
+      document.getElementById('v-phon-b').value=parts[1];
+      document.getElementById('v-spell-a').value=parts[2];
+      document.getElementById('v-spell-b').value=parts[3];
+      autoJudge();
     }
   }
 
-  function formatTime(input) {
-    const val = input.value.trim();
-    if (/^[a-dA-D]$/.test(val)) input.value = val.toUpperCase() + '段';
+  function parseDatetime(raw){
+    raw=raw.trim();
+    const m=/^(\d+)([a-dA-D]?)$/.exec(raw);
+    if(!m) return raw;
+    const digits=m[1], letter=m[2];
+    let datePart='';
+    if(digits.length===1) datePart=digits+'月';
+    else if(digits.length===2) datePart=digits[0]+'月'+digits[1]+'日';
+    else if(digits.length===3) datePart=digits[0]+'月'+digits.slice(1)+'日';
+    else if(digits.length===4) datePart=digits.slice(0,2)+'月'+digits.slice(2)+'日';
+    else datePart=digits;
+    const timePart=letter?letter.toUpperCase()+'段':'';
+    return datePart+timePart;
   }
 
-  function addTeacher(name) {
-    if (!name || name === '______') return name;
-    return name.endsWith('老师') ? name : name + '老师';
+  function formatDateInput(input){
+    const raw=input.value.trim();
+    if(!raw) return;
+    if(/^[a-dA-D]$/.test(raw)){ input.value=raw.toUpperCase()+'段'; return; }
+    if(/^\d+[a-dA-D]?$/.test(raw)) input.value=parseDatetime(raw);
   }
 
-  function v(id) { return (document.getElementById(id).value || '').trim(); }
-  function val(id) { return (document.getElementById(id).value || '______').trim(); }
+  function makeLessonBlock(type, id){
+    const isAdj=type==='adjust';
+    return `<div class="lesson-block" id="lesson-${id}">
+      <div class="lesson-block-header">
+        <span class="lesson-block-title">第 <span id="lesson-num-${id}">—</span> 节</span>
+        <button class="remove-btn" onclick="removeLesson('${type}',${id})">✕ 删除</button>
+      </div>
+      <div class="lesson-grid">
+        ${isAdj?'<div class="field-group-label" style="grid-column:1/-1;margin-bottom:4px">原课</div>':''}
+        <div class="field" style="grid-column:1/-1"><label>日期及时间段</label><input type="text" id="l-${id}-dt" placeholder="例：612d → 6月12日D段" onblur="formatDateInput(this)"></div>
+        <div class="field"><label>老师</label><input type="text" id="l-${id}-teacher" placeholder="例：张三"></div>
+        <div class="field"><label>课程</label><input type="text" id="l-${id}-course" placeholder="例：托福阅读课"></div>
+        ${isAdj?`<div class="field-group-label" style="grid-column:1/-1;margin-bottom:4px">调整至</div>
+        <div class="field" style="grid-column:1/-1"><label>日期及时间段</label><input type="text" id="l-${id}-todt" placeholder="例：613b → 6月13日B段" onblur="formatDateInput(this)"></div>`:''}
+      </div>
+    </div>`;
+  }
 
-  function generateEmail() {
-    let text = '';
-    if (emailType === 'adjust') {
-      const name = val('adj-name'), reason = val('adj-reason');
-      const date = val('adj-date'), time = val('adj-time');
-      const teacher = addTeacher(val('adj-teacher')), course = val('adj-course');
-      const toDate = val('adj-to-date'), toTime = val('adj-to-time');
-      text = `教务老师好，\n以下为学员${name}的课程调整申请，辛苦操作！\n\n学员姓名：${name}\n调整原因：${reason}\n调整内容：申请调整${date}${time}${teacher}${course}至${toDate}${toTime}\n课时补扣：不扣不补\n\n祝好，\n陈晓瑜`;
-    } else if (emailType === 'cancel') {
-      const name = val('can-name'), reason = val('can-reason');
-      const date = val('can-date'), time = val('can-time');
-      const teacher = addTeacher(val('can-teacher')), course = val('can-course');
-      text = `教务老师好，\n以下为学员${name}的课程取消申请，辛苦操作！\n\n学员姓名：${name}\n取消原因：${reason}\n取消内容：申请取消${date}${time}${teacher}${course}\n课时补扣：不扣不补\n\n祝好，\n陈晓瑜`;
+  function addLesson(type){
+    const id=++lessonCounter;
+    if(type==='adjust') adjLessons.push(id); else canLessons.push(id);
+    const container=document.getElementById(type==='adjust'?'adj-lessons':'can-lessons');
+    const div=document.createElement('div');
+    div.innerHTML=makeLessonBlock(type,id);
+    container.appendChild(div.firstChild);
+    updateLessonNumbers(type);
+  }
+
+  function removeLesson(type,id){
+    const arr=type==='adjust'?adjLessons:canLessons;
+    const idx=arr.indexOf(id);
+    if(idx>-1) arr.splice(idx,1);
+    const el=document.getElementById('lesson-'+id);
+    if(el) el.remove();
+    updateLessonNumbers(type);
+  }
+
+  function updateLessonNumbers(type){
+    const arr=type==='adjust'?adjLessons:canLessons;
+    arr.forEach((id,i)=>{ const el=document.getElementById('lesson-num-'+id); if(el) el.textContent=i+1; });
+  }
+
+  function gv(id){ return (document.getElementById(id)?.value||'______').trim(); }
+  function addTeacher(n){ if(!n||n==='______') return n; return n.endsWith('老师')?n:n+'老师'; }
+  function v(id){ return (document.getElementById(id)?.value||'').trim(); }
+
+  function generateEmail(){
+    let text='';
+    if(emailType==='adjust'){
+      const name=gv('adj-name'), reason=gv('adj-reason');
+      const lines=adjLessons.map(id=>{
+        const dt=gv('l-'+id+'-dt'), teacher=addTeacher(gv('l-'+id+'-teacher')), course=gv('l-'+id+'-course');
+        const todt=gv('l-'+id+'-todt');
+        return `${dt}${teacher}${course}至${todt}`;
+      });
+      const contentLine=lines.length===1
+        ?`调整内容：申请调整${lines[0]}`
+        :`调整内容：申请调整：\n${lines.join('\n')}`;
+      text=`教务老师好，\n以下为学员${name}的课程调整申请，辛苦操作！\n\n学员姓名：${name}\n调整原因：${reason}\n${contentLine}\n课时补扣：不扣不补\n\n祝好，\n陈晓瑜`;
+    } else if(emailType==='cancel'){
+      const name=gv('can-name'), reason=gv('can-reason');
+      const lines=canLessons.map(id=>{
+        const dt=gv('l-'+id+'-dt'), teacher=addTeacher(gv('l-'+id+'-teacher')), course=gv('l-'+id+'-course');
+        return `${dt}${teacher}${course}`;
+      });
+      const contentLine=lines.length===1
+        ?`取消内容：申请取消${lines[0]}`
+        :`取消内容：申请取消：\n${lines.join('\n')}`;
+      text=`教务老师好，\n以下为学员${name}的课程取消申请，辛苦操作！\n\n学员姓名：${name}\n取消原因：${reason}\n${contentLine}\n课时补扣：不扣不补\n\n祝好，\n陈晓瑜`;
     } else {
-      const name = val('res-name'), detail = val('res-detail');
-      text = `教务老师好，\n以下为学员${name}的复课申请，辛苦操作！\n\n学员复课细节如下：\n${detail}\n\n祝好，\n陈晓瑜`;
+      text=`教务老师好，\n以下为学员${gv('res-name')}的复课申请，辛苦操作！\n\n学员复课细节如下：\n${gv('res-detail')}\n\n祝好，\n陈晓瑜`;
     }
-    document.getElementById('email-output-box').textContent = text;
+    document.getElementById('email-output-box').textContent=text;
     document.getElementById('email-output-wrap').classList.add('show');
-    const btn = document.getElementById('email-copy-btn');
-    btn.classList.remove('copied'); btn.textContent = '复制正文';
+    const btn=document.getElementById('email-copy-btn');
+    btn.classList.remove('copied'); btn.textContent='复制正文';
   }
 
-  function generateVocab() {
-    const noBook = vCategory === '听力单词' || vCategory === '阅读单词';
-    const lessonNum = v('v-lesson');
-    const bookPart = noBook ? '' : vBook + (lessonNum ? 'L' + lessonNum : '');
-    const roundPart = v('v-round') ? ` 第${v('v-round')}遍` : '';
-    const name = v('v-name') || '______';
-    const phonA = v('v-phon-a') || '___', phonB = v('v-phon-b') || '___';
-    const spellA = v('v-spell-a') || '___', spellB = v('v-spell-b') || '___';
-    const passText = vPass === true ? '通过✅' : vPass === false ? '不通过❌' : '______';
-    const text = `${name} ${vCategory}${bookPart}${vReview}${roundPart}\n辨音：${phonA}/${phonB}\n拼写：${spellA}/${spellB}\n${passText}`;
-    document.getElementById('vocab-output-box').textContent = text;
+  function generateVocab(){
+    const noBook=vCategory==='听力单词'||vCategory==='阅读单词';
+    const lessonNum=v('v-lesson');
+    const bookPart=noBook?'':vBook+(lessonNum?'L'+lessonNum:'');
+    const roundPart=v('v-round')?` 第${v('v-round')}遍`:'';
+    const name=v('v-name')||'______';
+    const phonA=v('v-phon-a')||'___', phonB=v('v-phon-b')||'___';
+    const spellA=v('v-spell-a')||'___', spellB=v('v-spell-b')||'___';
+    const passText=vPass===true?'通过✅':vPass===false?'不通过❌':'______';
+    const text=`${name} ${vCategory}${bookPart}${vReview}${roundPart}\n辨音：${phonA}/${phonB}\n拼写：${spellA}/${spellB}\n${passText}`;
+    document.getElementById('vocab-output-box').textContent=text;
     document.getElementById('vocab-output-wrap').classList.add('show');
-    const btn = document.getElementById('vocab-copy-btn');
-    btn.classList.remove('copied'); btn.textContent = '复制';
+    const btn=document.getElementById('vocab-copy-btn');
+    btn.classList.remove('copied'); btn.textContent='复制';
   }
 
-  function copyAndClear(type) {
-    const text = document.getElementById(type+'-output-box').textContent;
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById(type+'-copy-btn');
-      btn.classList.add('copied'); btn.textContent = '已复制 ✓';
-      const hist = type === 'email' ? emailHistory : vocabHistory;
-      hist.unshift(text);
-      if (hist.length > 3) hist.pop();
-      if (type === 'email') emailHistory = hist; else vocabHistory = hist;
+  function copyAndClear(type){
+    const text=document.getElementById(type+'-output-box').textContent;
+    navigator.clipboard.writeText(text).then(()=>{
+      const btn=document.getElementById(type+'-copy-btn');
+      btn.classList.add('copied'); btn.textContent='已复制 ✓';
+      const hist=type==='email'?emailHistory:vocabHistory;
+      hist.unshift(text); if(hist.length>3) hist.pop();
+      if(type==='email') emailHistory=hist; else vocabHistory=hist;
       renderHistory(type);
-      setTimeout(() => {
-        clearFields(type);
-        document.getElementById(type+'-output-wrap').classList.remove('show');
-      }, 800);
+      setTimeout(()=>{ clearFields(type); document.getElementById(type+'-output-wrap').classList.remove('show'); },800);
     });
   }
 
-  function clearFields(type) {
-    if (type === 'email') {
-      ['adj-name','adj-reason','adj-date','adj-time','adj-teacher','adj-course','adj-to-date','adj-to-time',
-       'can-name','can-reason','can-date','can-time','can-teacher','can-course',
-       'res-name','res-detail'].forEach(id => document.getElementById(id).value = '');
+  function clearFields(type){
+    if(type==='email'){
+      ['adj-name','adj-reason','can-name','can-reason','res-name','res-detail']
+        .forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+      adjLessons=[]; canLessons=[];
+      document.getElementById('adj-lessons').innerHTML='';
+      document.getElementById('can-lessons').innerHTML='';
+      addLesson('adjust'); addLesson('cancel');
     } else {
-      ['v-name','v-lesson','v-round','v-phon-a','v-phon-b','v-spell-a','v-spell-b']
-        .forEach(id => document.getElementById(id).value = '');
-      vPass = null;
+      ['v-name','v-lesson','v-round','v-phon-a','v-phon-b','v-spell-a','v-spell-b','v-quick']
+        .forEach(id=>document.getElementById(id).value='');
+      vPass=null;
       document.getElementById('btn-pass').classList.remove('active');
       document.getElementById('btn-fail').classList.remove('active');
     }
   }
 
-  function renderHistory(type) {
-    const hist = type === 'email' ? emailHistory : vocabHistory;
-    const section = document.getElementById(type+'-history-section');
-    const list = document.getElementById(type+'-history-list');
-    if (!hist.length) { section.style.display = 'none'; return; }
-    section.style.display = 'block';
-    list.innerHTML = hist.map((text, i) => {
-      const preview = text.split('\n')[0];
-      const tag = type === 'email' ? '邮件' : '单词';
+  function renderHistory(type){
+    const hist=type==='email'?emailHistory:vocabHistory;
+    const section=document.getElementById(type+'-history-section');
+    const list=document.getElementById(type+'-history-list');
+    if(!hist.length){ section.style.display='none'; return; }
+    section.style.display='block';
+    list.innerHTML=hist.map((text,i)=>{
+      const preview=text.split('\n')[0];
+      const tag=type==='email'?'邮件':'单词';
       return `<div class="history-item">
         <div class="history-header" onclick="toggleHistory(this)">
           <div class="history-header-left">
@@ -387,21 +463,24 @@
     }).join('');
   }
 
-  function toggleHistory(header) {
-    const body = header.nextElementSibling;
-    const chevron = header.querySelector('.history-chevron');
-    const isOpen = body.classList.contains('open');
-    body.classList.toggle('open', !isOpen);
-    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+  function toggleHistory(header){
+    const body=header.nextElementSibling;
+    const chevron=header.querySelector('.history-chevron');
+    const isOpen=body.classList.contains('open');
+    body.classList.toggle('open',!isOpen);
+    chevron.style.transform=isOpen?'':'rotate(180deg)';
   }
 
-  function copyHistoryItem(btn, index, type) {
-    const hist = type === 'email' ? emailHistory : vocabHistory;
-    navigator.clipboard.writeText(hist[index]).then(() => {
-      btn.classList.add('copied'); btn.textContent = '已复制 ✓';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '复制'; }, 2000);
+  function copyHistoryItem(btn,index,type){
+    const hist=type==='email'?emailHistory:vocabHistory;
+    navigator.clipboard.writeText(hist[index]).then(()=>{
+      btn.classList.add('copied'); btn.textContent='已复制 ✓';
+      setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent='复制'; },2000);
     });
   }
+
+  addLesson('adjust');
+  addLesson('cancel');
 </script>
 </body>
 </html>
